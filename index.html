@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GiGi — l'assistente virtuale dell'Istituto</title>
+<style>
+  :root{
+    --cream:#fbf6ef;
+    --peach:#f6e4d4;
+    --terracotta:#d98b6b;
+    --terracotta-dark:#c2724f;
+    --plum:#6b4a52;
+    --ink:#3f3034;
+    --muted:#7a6a6f;
+    --leaf:#8aa37b;
+    --gold:#e0b574;
+    --white:#ffffff;
+    --shadow:0 12px 34px rgba(107,74,82,.14);
+    --shadow-sm:0 4px 14px rgba(107,74,82,.10);
+    --radius:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:var(--cream);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+  a{color:var(--terracotta-dark);text-decoration:none}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:30;background:rgba(251,246,239,.88);backdrop-filter:blur(10px);border-bottom:1px solid #efe1d3}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.15rem;color:var(--plum)}
+  .badge{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--terracotta),var(--gold));display:grid;place-items:center;color:#fff;font-weight:700;box-shadow:var(--shadow-sm)}
+  .nav-links{display:flex;gap:26px;font-size:.95rem;font-weight:600;color:var(--muted)}
+  .nav-links a{color:var(--muted)}
+  .nav-links a:hover{color:var(--terracotta-dark)}
+  @media(max-width:720px){.nav-links{display:none}}
+
+  /* Hero */
+  .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;padding:64px 0 50px}
+  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:34px;text-align:center}}
+  .pill{display:inline-block;background:var(--peach);color:var(--terracotta-dark);font-weight:700;font-size:.8rem;padding:7px 15px;border-radius:999px;letter-spacing:.3px}
+  .hero h1{font-size:2.9rem;line-height:1.12;color:var(--plum);margin:18px 0 16px;font-weight:800}
+  .hero h1 span{color:var(--terracotta-dark)}
+  .hero p.lead{font-size:1.16rem;color:var(--muted);max-width:520px}
+  @media(max-width:860px){.hero p.lead{margin:0 auto}}
+  .cta-row{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+  @media(max-width:860px){.cta-row{justify-content:center}}
+  .btn{border:none;cursor:pointer;font-family:inherit;font-weight:700;font-size:1rem;padding:14px 26px;border-radius:999px;transition:transform .15s ease,box-shadow .2s ease}
+  .btn-primary{background:var(--terracotta);color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+  .btn-ghost{background:transparent;color:var(--terracotta-dark);border:2px solid var(--terracotta)}
+  .btn-ghost:hover{background:var(--peach)}
+
+  /* Hero illustration / chat preview */
+  .preview{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;border:1px solid #f0e3d6}
+  .preview .top{display:flex;align-items:center;gap:10px;padding:6px 6px 14px;border-bottom:1px solid #f1e6da}
+  .dot{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--terracotta),var(--gold));display:grid;place-items:center;color:#fff;font-weight:700;font-size:.9rem}
+  .preview .top b{color:var(--plum)}
+  .preview .top small{color:var(--leaf);font-weight:700}
+  .bubbles{padding:16px 6px 6px;display:flex;flex-direction:column;gap:12px}
+  .b{max-width:82%;padding:11px 15px;border-radius:16px;font-size:.95rem}
+  .b.bot{background:var(--peach);color:var(--ink);border-bottom-left-radius:5px;align-self:flex-start}
+  .b.user{background:var(--terracotta);color:#fff;border-bottom-right-radius:5px;align-self:flex-end}
+
+  /* Sections */
+  section.block{padding:56px 0}
+  .section-head{text-align:center;max-width:640px;margin:0 auto 40px}
+  .section-head .pill{margin-bottom:14px}
+  .section-head h2{font-size:2.05rem;color:var(--plum);font-weight:800}
+  .section-head p{color:var(--muted);margin-top:10px;font-size:1.05rem}
+
+  /* Aree tematiche */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:860px){.grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--white);border-radius:var(--radius);padding:26px;box-shadow:var(--shadow-sm);border:1px solid #f1e6da;transition:transform .15s ease,box-shadow .2s ease}
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .ic{width:52px;height:52px;border-radius:15px;background:var(--peach);display:grid;place-items:center;font-size:1.5rem;margin-bottom:14px}
+  .card h3{color:var(--plum);font-size:1.15rem;margin-bottom:7px}
+  .card p{color:var(--muted);font-size:.95rem}
+
+  /* Demo chat */
+  .demo-wrap{background:linear-gradient(160deg,var(--peach),#fff);border-radius:28px;padding:34px;box-shadow:var(--shadow);border:1px solid #f0e3d6;max-width:680px;margin:0 auto}
+  .chat{background:var(--white);border-radius:20px;border:1px solid #f0e3d6;overflow:hidden;display:flex;flex-direction:column;height:460px}
+  .chat-head{display:flex;align-items:center;gap:11px;padding:14px 18px;background:var(--cream);border-bottom:1px solid #f1e6da}
+  .chat-head b{color:var(--plum)}
+  .chat-head small{display:block;color:var(--leaf);font-weight:700;font-size:.78rem}
+  .chat-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px;background:#fdfaf6}
+  .chat-body .b{max-width:85%}
+  .suggest{display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px;border-top:1px solid #f1e6da;background:var(--cream)}
+  .chip{background:#fff;border:1.5px solid var(--terracotta);color:var(--terracotta-dark);font-family:inherit;font-weight:600;font-size:.83rem;padding:7px 13px;border-radius:999px;cursor:pointer;transition:all .15s ease}
+  .chip:hover{background:var(--terracotta);color:#fff}
+  .chat-input{display:flex;gap:9px;padding:13px 16px;border-top:1px solid #f1e6da;background:#fff}
+  .chat-input input{flex:1;border:1.5px solid #ecdccd;border-radius:999px;padding:11px 17px;font-family:inherit;font-size:.95rem;outline:none}
+  .chat-input input:focus{border-color:var(--terracotta)}
+  .chat-input button{border:none;background:var(--terracotta);color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.1rem;display:grid;place-items:center}
+  .demo-note{text-align:center;color:var(--muted);font-size:.82rem;margin-top:14px}
+
+  /* Privacy / limiti */
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:760px){.two{grid-template-columns:1fr}}
+  .panel{background:var(--white);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow-sm);border:1px solid #f1e6da}
+  .panel h3{color:var(--plum);display:flex;align-items:center;gap:9px;margin-bottom:14px;font-size:1.2rem}
+  .panel ul{list-style:none}
+  .panel li{padding:7px 0 7px 28px;position:relative;color:var(--ink);font-size:.96rem}
+  .panel.do li::before{content:"✓";position:absolute;left:0;color:var(--leaf);font-weight:800}
+  .panel.dont li::before{content:"✕";position:absolute;left:0;color:var(--terracotta-dark);font-weight:800}
+  .disclaimer{background:var(--peach);border-radius:16px;padding:18px 22px;margin-top:24px;color:var(--plum);font-size:.92rem}
+
+  /* Contatto */
+  .form-wrap{max-width:620px;margin:0 auto;background:var(--white);border-radius:var(--radius);padding:34px;box-shadow:var(--shadow);border:1px solid #f1e6da}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-weight:700;color:var(--plum);margin-bottom:7px;font-size:.92rem}
+  .field input,.field textarea{width:100%;border:1.5px solid #ecdccd;border-radius:14px;padding:12px 15px;font-family:inherit;font-size:.97rem;outline:none;resize:vertical}
+  .field input:focus,.field textarea:focus{border-color:var(--terracotta)}
+  .form-msg{display:none;background:#eaf2e3;color:#4a6038;border-radius:14px;padding:14px 18px;margin-top:8px;font-weight:600}
+  .privacy-mini{font-size:.82rem;color:var(--muted);margin-top:12px}
+
+  footer{background:var(--plum);color:#f3e6df;padding:38px 0;margin-top:30px;text-align:center}
+  footer .brand{color:#fff;justify-content:center;margin-bottom:10px}
+  footer small{color:#d6bdc4;display:block;margin-top:8px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand"><span class="badge">G</span> GiGi · Assistente d'Istituto</div>
+    <nav class="nav-links">
+      <a href="#aree">Cosa fa</a>
+      <a href="#demo">Provala</a>
+      <a href="#trasparenza">Trasparenza</a>
+      <a href="#contatto">Contatti</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="wrap">
+  <section class="hero">
+    <div>
+      <span class="pill">In arrivo sul sito della scuola</span>
+      <h1>Salve, sono <span>GiGi</span>.<br>L'assistente virtuale dell'Istituto.</h1>
+      <p class="lead">Aiuto studenti e famiglie a trovare in fretta le informazioni che servono: iscrizioni, orari, indirizzi di studio, servizi digitali e attività STEM. In modo chiaro, preciso e cortese.</p>
+      <div class="cta-row">
+        <button class="btn btn-primary" onclick="document.getElementById('demo').scrollIntoView()">Prova la chat</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('aree').scrollIntoView()">Scopri cosa fa</button>
+      </div>
+    </div>
+    <div class="preview" aria-hidden="true">
+      <div class="top"><span class="dot">G</span><div><b>GiGi</b><br><small>● online</small></div></div>
+      <div class="bubbles">
+        <div class="b bot">Salve. Posso aiutarti con iscrizioni, orari, indirizzi di studio e servizi della scuola. Come posso esserti utile?</div>
+        <div class="b user">Quando aprono le iscrizioni?</div>
+        <div class="b bot">Le iscrizioni si effettuano online nei periodi stabiliti dal Ministero. Ti indico volentieri la pagina con guida e scadenze.</div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- AREE -->
+<section class="block" id="aree" style="background:linear-gradient(180deg,transparent,#f9efe4 40%,transparent)">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="pill">Cosa posso fare per te</span>
+      <h2>Cinque aree, una sola assistente</h2>
+      <p>GiGi conosce l'organizzazione della scuola e ti accompagna verso la pagina o la persona giusta.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="ic">📝</div><h3>Iscrizioni e segreteria</h3><p>Iscrizioni, certificati, nulla osta, trasferimenti, modulistica e orari di sportello.</p></div>
+      <div class="card"><div class="ic">🎓</div><h3>Offerta formativa</h3><p>Indirizzi di studio, quadri orari, PCTO, progetti, lingue e laboratori.</p></div>
+      <div class="card"><div class="ic">📅</div><h3>Vita scolastica</h3><p>Calendario, orari delle lezioni, assenze e giustificazioni, regolamento, uscite.</p></div>
+      <div class="card"><div class="ic">💻</div><h3>Servizi digitali</h3><p>Registro elettronico, PagoPA, credenziali, SPID ed email istituzionale.</p></div>
+      <div class="card"><div class="ic">🔬</div><h3>Didattica STEM</h3><p>Laboratori scientifici, progetti di matematica, fisica e informatica, iniziative STEM.</p></div>
+      <div class="card" style="background:var(--peach)"><div class="ic" style="background:#fff">💬</div><h3>...e molto altro</h3><p>Non trovi la risposta? Ti metto in contatto con la segreteria o il referente giusto.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section class="block" id="demo">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="pill">Anteprima</span>
+      <h2>Fai una domanda a GiGi</h2>
+      <p>Questa è una dimostrazione con risposte di esempio. La versione finale sarà collegata alle informazioni ufficiali della scuola.</p>
+    </div>
+    <div class="demo-wrap">
+      <div class="chat">
+        <div class="chat-head"><span class="dot" id="chatDot">G</span><div><b id="chatName">GiGi</b><small>● anteprima dimostrativa</small></div></div>
+        <div class="chat-body" id="chatBody">
+          <div class="b bot">Salve. Sono GiGi, l'assistente virtuale dell'Istituto. Seleziona una domanda qui sotto o scrivi la tua richiesta.</div>
+        </div>
+        <div class="suggest" id="suggest">
+          <button class="chip" onclick="ask(this.textContent)">Come mi iscrivo?</button>
+          <button class="chip" onclick="ask(this.textContent)">Quali indirizzi offrite?</button>
+          <button class="chip" onclick="ask(this.textContent)">Come giustifico un'assenza?</button>
+          <button class="chip" onclick="ask(this.textContent)">Ho perso le credenziali del registro</button>
+          <button class="chip" onclick="ask(this.textContent)">Avete laboratori STEM?</button>
+        </div>
+        <form class="chat-input" onsubmit="return sendMsg(event)">
+          <input id="chatInput" type="text" placeholder="Scrivi la tua domanda..." autocomplete="off">
+          <button type="submit" aria-label="Invia">➤</button>
+        </form>
+      </div>
+      <p class="demo-note">⚠️ Demo a scopo illustrativo · Non inserire dati personali · Le risposte definitive arriveranno dalle fonti ufficiali</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRASPARENZA -->
+<section class="block" id="trasparenza" style="background:linear-gradient(180deg,transparent,#f9efe4 40%,transparent)">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="pill">Chiarezza e fiducia</span>
+      <h2>Cosa faccio e cosa non faccio</h2>
+      <p>GiGi è uno strumento informativo: ti aiuta a orientarti, ma non sostituisce la segreteria, i docenti o gli organi della scuola.</p>
+    </div>
+    <div class="two">
+      <div class="panel do">
+        <h3>✅ Cosa faccio</h3>
+        <ul>
+          <li>Do informazioni generali su iscrizioni, orari e servizi</li>
+          <li>Ti indico la pagina ufficiale o il modulo giusto</li>
+          <li>Ti metto in contatto con la persona competente</li>
+          <li>Rispondo nella lingua in cui mi scrivi</li>
+          <li>Sono disponibile a qualsiasi ora</li>
+        </ul>
+      </div>
+      <div class="panel dont">
+        <h3>🚫 Cosa non faccio</h3>
+        <ul>
+          <li>Non fornisco dati personali di studenti o del personale</li>
+          <li>Non do consigli medici, legali o psicologici</li>
+          <li>Non confermo ammissioni, esiti o decisioni della scuola</li>
+          <li>Non esprimo opinioni o giudizi su persone</li>
+          <li>Non invento mai informazioni: se non so, te lo dico</li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer">
+      🔒 <b>Privacy.</b> Sono un assistente virtuale e fornisco informazioni di carattere generale. Per favore non inserire dati personali o sensibili nella chat. Le informazioni non sostituiscono le comunicazioni ufficiali della scuola. Informativa privacy: <a href="#">[link informativa]</a>.
+    </div>
+  </div>
+</section>
+
+<!-- CONTATTO -->
+<section class="block" id="contatto">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="pill">Hai una domanda?</span>
+      <h2>Scrivici</h2>
+      <p>Mentre prepariamo GiGi, le tue domande ci aiutano a renderlo più utile. Ti risponderemo dai canali ufficiali.</p>
+    </div>
+    <div class="form-wrap">
+      <form onsubmit="return submitForm(event)">
+        <div class="field">
+          <label for="nome">Come ti chiamiamo?</label>
+          <input id="nome" type="text" placeholder="Nome (anche solo di battesimo)" required>
+        </div>
+        <div class="field">
+          <label for="email">Email per la risposta</label>
+          <input id="email" type="email" placeholder="latua@email.it" required>
+        </div>
+        <div class="field">
+          <label for="ruolo">Sei...</label>
+          <input id="ruolo" type="text" placeholder="Studente / Genitore / Docente / Altro">
+        </div>
+        <div class="field">
+          <label for="domanda">La tua domanda</label>
+          <textarea id="domanda" rows="4" placeholder="Scrivi qui la tua domanda (senza dati personali o sensibili)" required></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit" style="width:100%">Invia la domanda</button>
+        <p class="privacy-mini">Inviando accetti l'<a href="#">informativa privacy</a>. Non inserire dati sensibili. <em>(Modulo dimostrativo: in questa demo l'invio non viene inoltrato.)</em></p>
+        <div class="form-msg" id="formMsg">Grazie! La tua domanda è stata registrata (demo). Nella versione finale verrà inoltrata alla segreteria.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand"><span class="badge">G</span> GiGi · Assistente d'Istituto</div>
+    <p>[Nome Istituto] · [indirizzo] · [email] · [telefono]</p>
+    <small>Progetto in fase di sviluppo — Fase 1: presentazione · Fase 2: chatbot integrato</small>
+  </div>
+</footer>
+
+<script>
+// Risposte dimostrative (statiche). Nella Fase 2 verranno dalla knowledge base.
+const RISPOSTE = [
+  {k:["iscriv","iscrizion","iscriver"], a:"Le iscrizioni si effettuano online sul portale del Ministero nei periodi stabiliti ogni anno. Sul sito trovi la guida passo-passo e il codice meccanografico: [link]. Per assistenza puoi scrivere alla segreteria a [email]. Vuoi i requisiti o le scadenze?"},
+  {k:["indirizz","studio","corso","liceo","tecnico"], a:"Il nostro istituto propone diversi indirizzi di studio: [elenco indirizzi]. Per ciascuno trovi quadro orario e sbocchi nella sezione Offerta Formativa: [link]. Se mi dici cosa ti interessa, ti indico l'indirizzo più adatto."},
+  {k:["assenz","giustific"], a:"Le assenze si giustificano [tramite registro elettronico / libretto], secondo il regolamento d'istituto: [link]. Se hai problemi con le credenziali, scrivi alla segreteria a [email]. Ti serve la procedura passo-passo?"},
+  {k:["credenzial","registro","password","accesso"], a:"Per il recupero delle credenziali del registro occorre rivolgersi alla segreteria, che gestisce gli accessi: [email] / [telefono]. Per sicurezza non inserire qui dati personali. Vuoi il link alla pagina del registro?"},
+  {k:["stem","laboratori","robotica","informatica","scienz"], a:"Sì! L'istituto ha laboratori e progetti in area STEM (es. informatica, robotica, fisica). Le attività sono descritte qui: [link]. Se ti interessa un progetto specifico, ti indico la pagina o il docente referente."},
+  {k:["pago","tassa","pagamento","contribut","costo","quanto cost"], a:"I pagamenti si effettuano tramite PagoPA dalla sezione dedicata: [link]. Gli importi possono variare di anno in anno: ti conviene verificarli sulla pagina ufficiale o chiedere alla segreteria a [email]."},
+  {k:["certificat","modulo","nulla osta","trasferiment"], a:"I certificati e i moduli si richiedono alla segreteria didattica: [link]. Tempi e modalità sono indicati nella stessa pagina. Posso aiutarti a trovare il documento giusto?"},
+  {k:["calendar","quando inizi","vacanz","festiv","orario lezion"], a:"Il calendario scolastico con inizio lezioni, festività e sospensioni è pubblicato qui: [link]. Sono date che possono aggiornarsi, quindi ti consiglio di confermarle su quella pagina."},
+];
+const FALLBACK = "Su questo non ho un'informazione certa e preferisco non darti un dato sbagliato. Puoi scrivere alla segreteria a [email] (tel. [numero]) oppure compilare il modulo di contatto qui sotto. Vuoi che ti indichi la pagina giusta?";
+const VIETATO = "Non posso fornire dati personali di singoli studenti o del personale. Queste informazioni si trovano nel registro elettronico con le proprie credenziali, oppure puoi chiederle alla segreteria a [email].";
+
+// GiGi: personalità mista 70% Tutor (neutro, sobrio, senza emoji) + 30% Lei (cortese).
+// Tono: sobrio e diretto, registro formale, ma con un tocco di cortesia.
+function voceGiGi(t){
+  return t
+    .replace(/\s*[🙂👍⚡✨]+/gu,"")      // niente emoji (Tutor)
+    .replace(/Sì!/g,"Sì, certo.")          // tocco cortese (Lei)
+    .replace(/!+/g,".");                    // registro sobrio
+}
+function aggiungi(testo, chi){
+  const body=document.getElementById('chatBody');
+  const d=document.createElement('div');
+  d.className='b '+chi;
+  d.textContent=testo;
+  body.appendChild(d);
+  body.scrollTop=body.scrollHeight;
+}
+function rispondi(q){
+  const t=q.toLowerCase();
+  let base;
+  if(/(voti|quante assenze|mio figlio|mia figlia|numero di|telefono del prof|indirizzo di casa)/.test(t)) base=VIETATO;
+  else { base=FALLBACK; for(const r of RISPOSTE){ if(r.k.some(x=>t.includes(x))){ base=r.a; break; } } }
+  return voceGiGi(base);
+}
+function ask(q){
+  aggiungi(q,'user');
+  setTimeout(()=>aggiungi(rispondi(q),'bot'),420);
+}
+function sendMsg(e){
+  e.preventDefault();
+  const inp=document.getElementById('chatInput');
+  const v=inp.value.trim();
+  if(!v) return false;
+  ask(v);
+  inp.value='';
+  return false;
+}
+function submitForm(e){
+  e.preventDefault();
+  document.getElementById('formMsg').style.display='block';
+  e.target.reset();
+  return false;
+}
+</script>
+</body>
+</html>
