@@ -22,10 +22,10 @@
   .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
   .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.15rem;color:#fff}
   .badge{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04122a;font-weight:800;box-shadow:var(--glow)}
-  .nav-links{display:flex;gap:26px;font-size:.95rem;font-weight:600}
+  .nav-links{display:flex;gap:24px;font-size:.95rem;font-weight:600}
   .nav-links a{color:var(--muted)}
   .nav-links a:hover{color:var(--cyan-bright)}
-  @media(max-width:720px){.nav-links{display:none}}
+  @media(max-width:780px){.nav-links{display:none}}
   .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;padding:70px 0 54px}
   @media(max-width:860px){.hero{grid-template-columns:1fr;gap:34px;text-align:center}}
   .pill{display:inline-block;background:rgba(34,211,238,.12);color:var(--cyan-bright);font-weight:700;font-size:.8rem;padding:7px 15px;border-radius:999px;letter-spacing:.4px;border:1px solid rgba(34,211,238,.35)}
@@ -85,6 +85,14 @@
   .chat-input input:focus{border-color:var(--cyan)}
   .chat-input button{border:none;background:linear-gradient(120deg,var(--cyan),var(--blue));color:#04122a;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:1.05rem;display:grid;place-items:center;font-weight:800}
   .demo-note{text-align:center;color:var(--muted);font-size:.82rem;margin-top:16px}
+  .dgroup{display:flex;align-items:center;gap:10px;font-size:1.3rem;color:var(--cyan-bright);margin:34px 0 16px;font-weight:700}
+  .dgroup::after{content:"";flex:1;height:1px;background:var(--line)}
+  .dcard{display:block;padding:20px 22px;text-decoration:none}
+  .dcard h3{color:#fff;font-size:1.05rem;margin-bottom:6px}
+  .dcard p{color:var(--muted);font-size:.9rem;margin-bottom:10px}
+  .dcard .tag{display:inline-block;font-size:.74rem;font-weight:700;color:#04122a;background:linear-gradient(120deg,var(--cyan),var(--blue));padding:4px 11px;border-radius:999px}
+  .dcard.soon{opacity:.65}
+  .dcard.soon .tag{background:rgba(139,92,255,.3);color:var(--cyan-bright)}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
   @media(max-width:760px){.two{grid-template-columns:1fr}}
   .panel{padding:28px}
@@ -124,6 +132,7 @@
       <a href="#missione">Missione</a>
       <a href="#aree">Cosa fa</a>
       <a href="#demo">Provala</a>
+      <a href="#didattica">Didattica</a>
       <a href="#futuro">Futuro</a>
       <a href="#contatto">Contatti</a>
     </nav>
@@ -212,6 +221,43 @@
       </div>
       <p class="demo-note">⚠ Demo a scopo illustrativo · Non inserire dati personali · Le risposte definitive arriveranno dalle fonti ufficiali</p>
     </div>
+  </div>
+</section>
+
+<section class="block" id="didattica">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="pill">Materiali interattivi</span>
+      <h2>Didattica: dispense e simulatori</h2>
+      <p>Risorse interattive di Fisica e Matematica del Liceo Galilei, con simulatori e visualizzazioni. GiGi potrà guidarti tra questi materiali.</p>
+    </div>
+
+    <h3 class="dgroup">⚡ Fisica — Elettrostatica e Meccanica</h3>
+    <div class="grid">
+      <a class="dcard card glass" href="https://didattica-galilei.github.io/dispense/simulatore_campo_elettrico.html" target="_blank" rel="noopener"><h3>Il Campo Elettrico</h3><p>Linee di campo fino a 4 cariche. Simulatore 2D e calcolatore numerico con unità reali (µC, nC, m, cm).</p><span class="tag">Simulatore 2D →</span></a>
+      <a class="dcard card glass" href="https://didattica-galilei.github.io/dispense/dispensa_potenziale_completa.html" target="_blank" rel="noopener"><h3>Il Potenziale Elettrico</h3><p>Equipotenziali 2D e superficie 3D di V(x,y) per fino a 4 cariche, con vista ruotabile.</p><span class="tag">2D + 3D →</span></a>
+      <a class="dcard card glass" href="https://didattica-galilei.github.io/dispense/dispensa_distribuzioni.html" target="_blank" rel="noopener"><h3>Distribuzioni di Carica</h3><p>Campo di piano, retta, sfera e conduttore irregolare. Mappa |E| ed effetto punta.</p><span class="tag">4 simulatori →</span></a>
+      <a class="dcard card glass" href="https://didattica-galilei.github.io/dispense/energia_potenziale_atomo.html" target="_blank" rel="noopener"><h3>Energia potenziale e atomo</h3><p>Dall'energia potenziale elettrica al modello di Bohr e alla distinzione tra conduttori e isolanti.</p><span class="tag">Dispensa →</span></a>
+      <a class="dcard card glass" href="https://didattica-galilei.github.io/dispense/fisica/meccanica.html" target="_blank" rel="noopener"><h3>Meccanica</h3><p>Dispensa di meccanica con materiali e simulatori.</p><span class="tag">Dispensa →</span></a>
+    </div>
+
+    <h3 class="dgroup">∫ Matematica</h3>
+    <div class="grid">
+      <a class="dcard card glass" href="https://didattica-galilei.github.io/dispense/matematica/probabilita.html" target="_blank" rel="noopener"><h3>Probabilità</h3><p>Calcolo combinatorio, probabilità classica, eventi dipendenti, Bayes. Simulatori con moneta, dado e carte.</p><span class="tag">Combinatorio · Bayes →</span></a>
+      <a class="dcard card glass" href="https://didattica-galilei.github.io/dispense/tre_perpendicolari.html" target="_blank" rel="noopener"><h3>Teorema delle Tre Perpendicolari</h3><p>Visualizzatore 3D del teorema e simulatore di piramidi triangolari e quadrangolari.</p><span class="tag">3D interattivo →</span></a>
+      <a class="dcard card glass" href="https://didattica-galilei.github.io/dispense/geometria_spazio.html" target="_blank" rel="noopener"><h3>Geometria dello Spazio</h3><p>Piani, rette e vettori nello spazio: equazioni cartesiane, forme parametriche, prodotto vettoriale.</p><span class="tag">5 simulatori 3D →</span></a>
+      <a class="dcard card glass" href="https://didattica-galilei.github.io/dispense/matematica/analitica_piano.html" target="_blank" rel="noopener"><h3>Geometria Analitica</h3><p>Rette e coniche, luoghi geometrici con visualizzazione interattiva.</p><span class="tag">Simulatori →</span></a>
+      <a class="dcard card glass" href="https://didattica-galilei.github.io/dispense/variabili_aleatorie.html" target="_blank" rel="noopener"><h3>Variabili Aleatorie</h3><p>Distribuzioni e variabili casuali, con materiali e simulatori.</p><span class="tag">Dispensa →</span></a>
+      <a class="dcard card glass" href="https://didattica-galilei.github.io/dispense/statistica_bivariata.html" target="_blank" rel="noopener"><h3>Statistica Bivariata</h3><p>Relazioni tra due variabili, correlazione e regressione.</p><span class="tag">Dispensa →</span></a>
+      <span class="dcard card glass soon"><h3>Numeri Complessi</h3><p>Piano di Argand, operazioni, forme esponenziali e trasformazioni conformi.</p><span class="tag">In preparazione</span></span>
+    </div>
+
+    <h3 class="dgroup">📰 Articoli e curiosità</h3>
+    <div class="grid">
+      <a class="dcard card glass" href="https://didattica-galilei.github.io/dispense/letture.html" target="_blank" rel="noopener"><h3>Letture</h3><p>Articoli e curiosità di Fisica e Matematica per approfondire.</p><span class="tag">Leggi →</span></a>
+    </div>
+
+    <p class="demo-note" style="margin-top:22px">Fonte: <a href="https://didattica-galilei.github.io/dispense/" target="_blank" rel="noopener">Dispense Interattive — Liceo Galilei di Pescara</a></p>
   </div>
 </section>
 
