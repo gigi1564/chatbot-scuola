@@ -122,6 +122,22 @@
   .form-msg{display:none;background:#eaf2e3;color:#4a6038;border-radius:14px;padding:14px 18px;margin-top:8px;font-weight:600}
   .privacy-mini{font-size:.82rem;color:var(--muted);margin-top:12px}
 
+  /* Missione */
+  .mission{background:linear-gradient(135deg,var(--terracotta),var(--gold));color:#fff;border-radius:28px;padding:46px 38px;text-align:center;box-shadow:var(--shadow);margin:6px 0}
+  .mission .pill{background:rgba(255,255,255,.25);color:#fff}
+  .mission h2{font-size:1.9rem;font-weight:800;margin:14px auto 12px;max-width:760px}
+  .mission p{font-size:1.1rem;max-width:720px;margin:0 auto;color:#fff;opacity:.95}
+
+  /* Slogan band */
+  .band{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;padding:8px 0 4px}
+  .slogan{background:var(--white);border:1.5px dashed var(--terracotta);color:var(--terracotta-dark);font-weight:700;padding:11px 20px;border-radius:999px;font-size:1rem}
+
+  /* Future list */
+  .future{display:grid;grid-template-columns:1fr 1fr;gap:12px 26px;max-width:760px;margin:0 auto}
+  @media(max-width:620px){.future{grid-template-columns:1fr}}
+  .future li{list-style:none;padding:11px 0 11px 30px;position:relative;color:var(--ink)}
+  .future li::before{content:"→";position:absolute;left:0;color:var(--terracotta);font-weight:800}
+
   footer{background:var(--plum);color:#f3e6df;padding:38px 0;margin-top:30px;text-align:center}
   footer .brand{color:#fff;justify-content:center;margin-bottom:10px}
   footer small{color:#d6bdc4;display:block;margin-top:8px}
@@ -133,9 +149,10 @@
   <div class="wrap nav">
     <div class="brand"><span class="badge">G</span> GiGi · Assistente d'Istituto</div>
     <nav class="nav-links">
+      <a href="#missione">Missione</a>
       <a href="#aree">Cosa fa</a>
       <a href="#demo">Provala</a>
-      <a href="#trasparenza">Trasparenza</a>
+      <a href="#futuro">Futuro</a>
       <a href="#contatto">Contatti</a>
     </nav>
   </div>
@@ -160,6 +177,22 @@
         <div class="b user">Quando aprono le iscrizioni?</div>
         <div class="b bot">Le iscrizioni si effettuano online nei periodi stabiliti dal Ministero. Ti indico volentieri la pagina con guida e scadenze.</div>
       </div>
+    </div>
+  </section>
+</div>
+
+<!-- MISSIONE -->
+<div class="wrap">
+  <section class="block" id="missione" style="padding-top:18px">
+    <div class="mission">
+      <span class="pill">La nostra missione</span>
+      <h2>Guidare studenti e famiglie nella vita scolastica</h2>
+      <p>GiGi è un assistente digitale pensato per accompagnare studenti e famiglie del Liceo [Nome Liceo], offrendo informazioni rapide, supporto orientativo e strumenti didattici innovativi. Un ponte tra scuola, innovazione e cultura scientifica.</p>
+    </div>
+    <div class="band">
+      <span class="slogan">"Chiedi a GiGi"</span>
+      <span class="slogan">"La mente digitale del Liceo"</span>
+      <span class="slogan">"Scienza, orientamento e innovazione"</span>
     </div>
   </section>
 </div>
@@ -214,6 +247,23 @@
   </div>
 </section>
 
+<!-- MODALITA D'USO -->
+<section class="block" id="modalita">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="pill">Dove trovi GiGi</span>
+      <h2>Sempre a portata di mano</h2>
+      <p>GiGi sarà accessibile dai canali della scuola, online e in presenza.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="ic">💬</div><h3>Chat sul sito</h3><p>Una finestra di dialogo integrata nel sito della scuola, disponibile a ogni ora.</p></div>
+      <div class="card"><div class="ic">📱</div><h3>QR Code</h3><p>Durante Open Day ed eventi, basta inquadrare il codice per fare domande a GiGi.</p></div>
+      <div class="card"><div class="ic">🖥️</div><h3>Totem interattivo</h3><p>Una postazione all'ingresso della scuola per studenti, famiglie e visitatori.</p></div>
+      <div class="card"><div class="ic">🔗</div><h3>Portale scolastico</h3><p>Assistente digitale integrato nel portale, accanto agli altri servizi.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- TRASPARENZA -->
 <section class="block" id="trasparenza" style="background:linear-gradient(180deg,transparent,#f9efe4 40%,transparent)">
   <div class="wrap">
@@ -246,6 +296,27 @@
     </div>
     <div class="disclaimer">
       🔒 <b>Privacy.</b> Sono un assistente virtuale e fornisco informazioni di carattere generale. Per favore non inserire dati personali o sensibili nella chat. Le informazioni non sostituiscono le comunicazioni ufficiali della scuola. Informativa privacy: <a href="#">[link informativa]</a>.
+    </div>
+  </div>
+</section>
+
+<!-- EVOLUZIONI FUTURE -->
+<section class="block" id="futuro">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="pill">Dove stiamo andando</span>
+      <h2>Le evoluzioni future</h2>
+      <p>GiGi crescerà nel tempo, con nuove funzioni al servizio della didattica e dell'orientamento.</p>
+    </div>
+    <div class="panel" style="max-width:820px;margin:0 auto">
+      <ul class="future">
+        <li>Avatar parlante con voce AI</li>
+        <li>Accesso personalizzato per studenti e docenti</li>
+        <li>Collegamento a calendario e circolari</li>
+        <li>Tutor intelligente per discipline STEM</li>
+        <li>Analisi delle domande più frequenti</li>
+        <li>Ampliamento a tutte le discipline</li>
+      </ul>
     </div>
   </div>
 </section>
