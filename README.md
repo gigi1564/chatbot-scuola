@@ -9,6 +9,7 @@ Creare un assistente digitale capace di guidare studenti e famiglie all'interno 
 ## Contenuto del repository
 
 - **`index.html`** — Landing di presentazione (Fase 1) con demo dimostrativa della chat di GiGi.
+- **`gigi.js`** — Script della landing: effetto rete neurale di sfondo e logica della demo chat.
 - **`knowledge-base-assistente-scuola.md`** — Istruzioni operative per il chatbot (system prompt, regole, tono, esempi, roadmap).
 - **`visione-progetto-gigi.md`** — Visione e concept: missione, funzionalità, modalità d'uso, identità visiva, slogan, evoluzioni future.
 
