@@ -74,6 +74,14 @@ function sendMsg(e){
   inp.value='';
   return false;
 }
+// --- Mobile: menu a tendina ---
+function toggleMenu(){ var n=document.getElementById('navLinks'); if(n) n.classList.toggle('open'); }
+document.addEventListener('click', function(e){
+  if(e.target.closest && e.target.closest('#navLinks a')){ var n=document.getElementById('navLinks'); if(n) n.classList.remove('open'); }
+});
+// --- Chip: riempie il box di testo (poi l'utente invia) ---
+function pickChip(t){ var inp=document.getElementById('chatInput'); if(inp){ inp.value=t; inp.focus(); inp.scrollIntoView({block:'center'}); } }
+
 function submitForm(e){
   e.preventDefault();
   document.getElementById('formMsg').style.display='block';

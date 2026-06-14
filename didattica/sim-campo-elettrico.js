@@ -114,16 +114,22 @@ function canvasPos(ev){
   const cy=(ev.touches?ev.touches[0].clientY:ev.clientY)-r.top;
   return [cx,cy];
 }
-cv.addEventListener('mousedown', function(ev){
+function onDown(ev){
   const [x,y]=canvasPos(ev);
   dragIdx=-1;
-  for(let i=0;i<charges.length;i++){ if(Math.hypot(x-charges[i].x,y-charges[i].y)<14){dragIdx=i;return;} }
+  for(let i=0;i<charges.length;i++){ if(Math.hypot(x-charges[i].x,y-charges[i].y)<16){dragIdx=i;return;} }
   if(charges.length<4){ charges.push({x,y,q:tool}); drawField(); }
-});
-cv.addEventListener('mousemove', function(ev){
-  if(dragIdx>=0){ const [x,y]=canvasPos(ev); charges[dragIdx].x=x; charges[dragIdx].y=y; drawField(); }
-});
-window.addEventListener('mouseup', function(){ dragIdx=-1; });
+}
+function onMove(ev){
+  if(dragIdx>=0){ if(ev.cancelable) ev.preventDefault(); const [x,y]=canvasPos(ev); charges[dragIdx].x=x; charges[dragIdx].y=y; drawField(); }
+}
+function onUp(){ dragIdx=-1; }
+cv.addEventListener('mousedown', onDown);
+cv.addEventListener('mousemove', onMove);
+window.addEventListener('mouseup', onUp);
+cv.addEventListener('touchstart', function(ev){ if(ev.cancelable) ev.preventDefault(); onDown(ev); }, {passive:false});
+cv.addEventListener('touchmove', function(ev){ onMove(ev); }, {passive:false});
+window.addEventListener('touchend', onUp);
 window.addEventListener('resize', drawField);
 
 // ---------- Calcolatore E nel punto P ----------

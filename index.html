@@ -19,13 +19,20 @@
   .wrap{max-width:1120px;margin:0 auto;padding:0 22px;position:relative;z-index:2}
   a{color:var(--cyan-bright);text-decoration:none}
   header{position:sticky;top:0;z-index:30;background:rgba(7,11,31,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0;position:relative}
   .brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.15rem;color:#fff}
   .badge{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--cyan),var(--violet));display:grid;place-items:center;color:#04122a;font-weight:800;box-shadow:var(--glow)}
   .nav-links{display:flex;gap:24px;font-size:.95rem;font-weight:600}
   .nav-links a{color:var(--muted)}
   .nav-links a:hover{color:var(--cyan-bright)}
-  @media(max-width:780px){.nav-links{display:none}}
+  .menu-btn{display:none;background:rgba(34,211,238,.1);border:1px solid var(--line);color:var(--cyan-bright);border-radius:10px;padding:6px 12px;font-size:1.2rem;cursor:pointer;line-height:1}
+  @media(max-width:780px){
+    .nav-links{position:absolute;top:58px;right:12px;left:12px;flex-direction:column;gap:2px;background:rgba(10,16,40,.98);border:1px solid var(--line);border-radius:14px;padding:10px;display:none;box-shadow:var(--shadow);z-index:40}
+    .nav-links.open{display:flex}
+    .nav-links a{padding:11px 10px;border-bottom:1px solid var(--line)}
+    .nav-links a:last-child{border-bottom:none}
+    .menu-btn{display:block}
+  }
   .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center;padding:70px 0 54px}
   @media(max-width:860px){.hero{grid-template-columns:1fr;gap:34px;text-align:center}}
   .pill{display:inline-block;background:rgba(34,211,238,.12);color:var(--cyan-bright);font-weight:700;font-size:.8rem;padding:7px 15px;border-radius:999px;letter-spacing:.4px;border:1px solid rgba(34,211,238,.35)}
@@ -118,6 +125,15 @@
   footer .brand{color:#fff;justify-content:center;margin-bottom:10px}
   footer p{color:var(--muted)}
   footer small{color:#6c80a8;display:block;margin-top:8px}
+  @media(max-width:560px){
+    .hero h1{font-size:2.15rem}
+    .hero{padding:46px 0 36px}
+    .section-head h2{font-size:1.6rem}
+    .mission{padding:34px 22px}
+    .mission h2{font-size:1.5rem}
+    .wrap{padding:0 16px}
+    .chat{height:60vh;min-height:420px}
+  }
 </style>
 </head>
 <body>
@@ -128,7 +144,8 @@
 <header>
   <div class="wrap nav">
     <div class="brand"><span class="badge">G</span> GiGi · Assistente d'Istituto</div>
-    <nav class="nav-links">
+    <button class="menu-btn" id="menuBtn" aria-label="Apri menu" onclick="toggleMenu()">☰</button>
+    <nav class="nav-links" id="navLinks">
       <a href="#missione">Missione</a>
       <a href="#aree">Cosa fa</a>
       <a href="#demo">Provala</a>
@@ -209,13 +226,13 @@
           <div class="b bot">Salve. Sono GiGi, l'assistente virtuale dell'Istituto. Seleziona una domanda qui sotto o scrivi la tua richiesta.</div>
         </div>
         <div class="suggest" id="suggest">
-          <button class="chip" onclick="ask(this.textContent)">Come mi iscrivo?</button>
-          <button class="chip" onclick="ask(this.textContent)">Quali indirizzi offrite?</button>
-          <button class="chip" onclick="ask(this.textContent)">Come giustifico un'assenza?</button>
-          <button class="chip" onclick="ask(this.textContent)">Ho perso le credenziali del registro</button>
-          <button class="chip" onclick="ask(this.textContent)">Avete laboratori STEM?</button>
-          <button class="chip" onclick="ask(this.textContent)">Come prenoto lo sportello didattico?</button>
-          <button class="chip" onclick="ask(this.textContent)">Ci sono corsi di recupero?</button>
+          <button class="chip" onclick="pickChip(this.textContent)">Come mi iscrivo?</button>
+          <button class="chip" onclick="pickChip(this.textContent)">Quali indirizzi offrite?</button>
+          <button class="chip" onclick="pickChip(this.textContent)">Come giustifico un'assenza?</button>
+          <button class="chip" onclick="pickChip(this.textContent)">Ho perso le credenziali del registro</button>
+          <button class="chip" onclick="pickChip(this.textContent)">Avete laboratori STEM?</button>
+          <button class="chip" onclick="pickChip(this.textContent)">Come prenoto lo sportello didattico?</button>
+          <button class="chip" onclick="pickChip(this.textContent)">Ci sono corsi di recupero?</button>
         </div>
         <form class="chat-input" onsubmit="return sendMsg(event)">
           <input id="chatInput" type="text" placeholder="Scrivi la tua domanda..." autocomplete="off">
