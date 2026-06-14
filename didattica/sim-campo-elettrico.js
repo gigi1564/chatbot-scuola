@@ -63,25 +63,29 @@ function drawArrows(W,H){
   }
 }
 function drawLines(W,H){
-  // streamline dalle cariche positive
+  // Linee di campo: escono dalle cariche +, entrano nelle cariche −.
+  // Le + si tracciano lungo +E (uscenti); le − lungo −E (entranti, tracciate al contrario).
   ctx.strokeStyle='rgba(92,243,255,.55)'; ctx.lineWidth=1.2;
-  const nLines=12;
+  const nLines=14, maxSteps=320, ds=2.2;
   for(const c of charges){
-    if(c.q<=0) continue;
+    const dir = c.q>0 ? 1 : -1;
     for(let i=0;i<nLines;i++){
       const ang=(2*Math.PI*i)/nLines;
-      let x=c.x+12*Math.cos(ang), y=c.y+12*Math.sin(ang);
+      let x=c.x+13*Math.cos(ang), y=c.y+13*Math.sin(ang);
       ctx.beginPath(); ctx.moveTo(x,y);
-      for(let step=0;step<260;step++){
+      for(let step=0;step<maxSteps;step++){
         const [ex,ey]=fieldAt(x,y);
         const mag=Math.hypot(ex,ey); if(mag<1e-9) break;
-        x+=2.2*ex/mag; y+=2.2*ey/mag;
-        if(x<-20||x>W+20||y<-20||y>H+20) break;
-        // ferma vicino a una carica negativa
-        let near=false;
-        for(const d of charges){ if(d.q<0 && Math.hypot(x-d.x,y-d.y)<10){near=true;break;} }
+        x+=dir*ds*ex/mag; y+=dir*ds*ey/mag;
         ctx.lineTo(x,y);
-        if(near) break;
+        if(x<-25||x>W+25||y<-25||y>H+25) break;
+        // termina avvicinandosi a una carica di segno opposto
+        let stop=false;
+        for(const d of charges){
+          if(d===c) continue;
+          if(Math.sign(d.q)!==Math.sign(c.q) && Math.hypot(x-d.x,y-d.y)<12){ stop=true; break; }
+        }
+        if(stop) break;
       }
       ctx.stroke();
     }
