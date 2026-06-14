@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campo Elettrico — Simulatore | Didattica GiGi</title>
+<link rel="stylesheet" href="gigi-didattica.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+  .sim{background:rgba(7,11,31,.5);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+  .ctrls{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-bottom:12px}
+  .ctrl{display:flex;flex-direction:column;gap:5px}
+  .ctrl label{font-size:.78rem;color:var(--muted);font-weight:700}
+  .ctrl input[type=number],.ctrl select{background:rgba(16,26,58,.7);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:8px 10px;font-family:inherit;font-size:.9rem;width:84px}
+  canvas#field{width:100%;height:420px;background:rgba(7,11,31,.55);border:1px solid var(--line);border-radius:12px;display:block;cursor:crosshair;touch-action:none}
+  .hint{font-size:.82rem;color:var(--muted);margin-top:8px}
+  table.q{width:100%;border-collapse:collapse;font-size:.88rem;margin:8px 0}
+  table.q th,table.q td{border:1px solid var(--line);padding:6px 8px;text-align:center}
+  table.q th{color:var(--cyan-bright)}
+  table.q input,table.q select{background:rgba(16,26,58,.7);border:1px solid var(--line);color:var(--ink);border-radius:7px;padding:5px 7px;font-family:inherit;font-size:.85rem;width:72px}
+  .res{background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.3);border-radius:10px;padding:14px;margin-top:12px}
+  .res .bigval{font-size:1.4rem;color:var(--cyan-bright);font-weight:800}
+  .res .row{margin:5px 0;font-size:.95rem}
+  .res b{color:#fff}
+</style>
+</head>
+<body>
+<div class="glow-bg"></div>
+
+<header>
+  <div class="nav">
+    <div class="brand"><span class="badge">G</span> GiGi · Didattica</div>
+    <a class="back" href="fisica-campo-elettrico.html">← Dispensa Campo Elettrico</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="topic-hero">
+    <span class="eyebrow">⚡ Fisica II · Elettrostatica</span>
+    <h1>Il Campo Elettrico</h1>
+    <p class="sub">Simulatore delle linee di campo e calcolatore numerico con unità reali.</p>
+    <div class="toc">
+      <a href="#teoria">Teoria</a>
+      <a href="#simulatore">Linee di campo</a>
+      <a href="#calcolatore">Calcolatore E</a>
+      <a href="#esercizi">Esercizi</a>
+    </div>
+    <div class="toolbar no-print"><button class="btn btn-primary" onclick="window.print()">🖨️ Stampa / Esporta PDF</button></div>
+  </section>
+
+  <section class="card" id="teoria">
+    <h2><span class="em">⚡</span> 1. Introduzione</h2>
+    <p>Il <b>campo elettrico</b> è una grandezza vettoriale definita in ogni punto dello spazio. Una carica sorgente $Q$ genera in un punto a distanza $r$:</p>
+    <div class="formula">$$E=k\,\frac{Q}{r^2}\qquad k=8{,}99\times10^{9}\ \text{N·m}^2/\text{C}^2$$</div>
+    <p>Con più cariche vale il <b>principio di sovrapposizione</b>: il campo totale è la somma vettoriale dei contributi. Proprietà delle <b>linee di campo</b>:</p>
+    <ul>
+      <li>Partono dalle cariche <b>positive</b> e arrivano alle <b>negative</b> (o dall'/all'infinito).</li>
+      <li>Non si incrociano mai.</li>
+      <li>La loro densità indica l'intensità del campo.</li>
+    </ul>
+  </section>
+
+  <section class="card" id="simulatore">
+    <h2><span class="em">🧭</span> 2. Simulatore — Campo e linee</h2>
+    <p class="muted">Aggiungi cariche e osserva il campo vettoriale (frecce) e le linee di campo. Clicca sulla tela per posizionare la carica selezionata; trascina una carica per spostarla.</p>
+    <div class="sim">
+      <div class="ctrls">
+        <div class="ctrl"><button class="btn btn-primary" id="btnPlus" onclick="setTool(1)">＋ Carica +</button></div>
+        <div class="ctrl"><button class="btn btn-ghost" id="btnMinus" onclick="setTool(-1)">－ Carica −</button></div>
+        <div class="ctrl"><label>Mostra</label><select id="mode" onchange="drawField()"><option value="both">Frecce + linee</option><option value="arrows">Solo frecce</option><option value="lines">Solo linee</option></select></div>
+        <div class="ctrl"><button class="btn btn-ghost" onclick="resetField()">Reset</button></div>
+      </div>
+      <canvas id="field"></canvas>
+      <p class="hint">Cariche attive: <span class="out" id="qCount">0</span> (max 4). Le frecce indicano direzione e intensità (colore) del campo.</p>
+    </div>
+  </section>
+
+  <section class="card" id="calcolatore">
+    <h2><span class="em">🧮</span> 3. Calcolatore — E nel punto P</h2>
+    <p class="muted">Inserisci le cariche con coordinate reali e il punto P. Otterrai modulo, componenti, angolo e contributi individuali.</p>
+    <div class="sim">
+      <h3>Cariche sorgente</h3>
+      <table class="q" id="qtab">
+        <tr><th>#</th><th>q</th><th>unità</th><th>x</th><th>y</th><th>unità pos.</th></tr>
+        <tr><td>1</td><td><input type="number" id="q1" value="1"></td><td><select id="u1"><option>mC</option><option selected>µC</option><option>nC</option><option>pC</option></select></td><td><input type="number" id="x1" value="0"></td><td><input type="number" id="y1" value="0"></td><td><select id="p1"><option selected>m</option><option>cm</option><option>mm</option></select></td></tr>
+        <tr><td>2</td><td><input type="number" id="q2" value="-1"></td><td><select id="u2"><option>mC</option><option selected>µC</option><option>nC</option><option>pC</option></select></td><td><input type="number" id="x2" value="1"></td><td><input type="number" id="y2" value="0"></td><td><select id="p2"><option selected>m</option><option>cm</option><option>mm</option></select></td></tr>
+        <tr><td>3</td><td><input type="number" id="q3" value="0"></td><td><select id="u3"><option>mC</option><option selected>µC</option><option>nC</option><option>pC</option></select></td><td><input type="number" id="x3" value="0"></td><td><input type="number" id="y3" value="1"></td><td><select id="p3"><option selected>m</option><option>cm</option><option>mm</option></select></td></tr>
+        <tr><td>4</td><td><input type="number" id="q4" value="0"></td><td><select id="u4"><option>mC</option><option selected>µC</option><option>nC</option><option>pC</option></select></td><td><input type="number" id="x4" value="1"></td><td><input type="number" id="y4" value="1"></td><td><select id="p4"><option selected>m</option><option>cm</option><option>mm</option></select></td></tr>
+      </table>
+      <div class="ctrls">
+        <div class="ctrl"><label>x di P</label><input type="number" id="px" value="0.5"></div>
+        <div class="ctrl"><label>y di P</label><input type="number" id="py" value="0.5"></div>
+        <div class="ctrl"><label>unità P</label><select id="pu"><option selected>m</option><option>cm</option><option>mm</option></select></div>
+        <div class="ctrl"><button class="btn btn-primary" onclick="calcE()">▶ Calcola</button></div>
+      </div>
+      <div class="res" id="eres"><span class="muted">Inserisci le cariche e il punto P, poi clicca ▶ Calcola.</span></div>
+    </div>
+  </section>
+
+  <section class="card" id="esercizi">
+    <h2><span class="em">📝</span> 4. Esercizi proposti</h2>
+    <p><b>Con il simulatore:</b></p>
+    <ul>
+      <li>Una sola carica positiva: osserva la simmetria radiale.</li>
+      <li>Dipolo ($+1$ e $-1$): individua le linee che collegano le cariche.</li>
+      <li>Due cariche positive uguali: dove si trova il punto di equilibrio?</li>
+    </ul>
+    <p><b>Con il calcolatore:</b></p>
+    <ul>
+      <li>$Q_1=+1\,\mu C$ in $(0,0)$ e $Q_2=-1\,\mu C$ in $(1,0)$: calcola $E$ in $(0{,}5;0{,}5)$. Qual è l'angolo?</li>
+      <li>$Q=+2\,\mu C$ in $(0,0)$: calcola $E$ a $10\,cm$, $50\,cm$, $1\,m$. Verifica $E\propto 1/r^2$.</li>
+      <li>Quattro cariche $+1\,nC$ ai vertici di un quadrato di lato $1\,m$: quanto vale $E$ al centro?</li>
+    </ul>
+  </section>
+
+  <footer>Didattica GiGi · Simulatore Campo Elettrico · Ricostruzione locale in stile GiGi</footer>
+</div>
+
+<script src="sim-campo-elettrico.js"></script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Probabilità — Simulatori | Didattica GiGi</title>
+<link rel="stylesheet" href="gigi-didattica.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+  .sim{background:rgba(7,11,31,.5);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+  .ctrls{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:14px}
+  .ctrl{display:flex;flex-direction:column;gap:5px}
+  .ctrl label{font-size:.78rem;color:var(--muted);font-weight:700}
+  .ctrl input[type=number],.ctrl select{background:rgba(16,26,58,.7);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:8px 11px;font-family:inherit;font-size:.92rem;min-width:90px}
+  .ctrl input[type=range]{width:160px}
+  .out{font-family:ui-monospace,monospace;color:var(--cyan-bright)}
+  .statline{display:flex;flex-wrap:wrap;gap:18px;margin-top:10px;font-size:.92rem}
+  .statline b{color:#fff}
+  canvas.chart{width:100%;height:200px;background:rgba(7,11,31,.4);border:1px solid var(--line);border-radius:10px;display:block;margin-top:10px}
+  .bigval{font-size:1.5rem;color:var(--cyan-bright);font-weight:800}
+  table.cmb{width:100%;border-collapse:collapse;margin:12px 0;font-size:.9rem}
+  table.cmb th,table.cmb td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+  table.cmb th{color:var(--cyan-bright)}
+</style>
+</head>
+<body>
+<div class="glow-bg"></div>
+
+<header>
+  <div class="nav">
+    <div class="brand"><span class="badge">G</span> GiGi · Didattica</div>
+    <a class="back" href="matematica-probabilita.html">← Dispensa Probabilità</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="topic-hero">
+    <span class="eyebrow">∫ Matematica · Simulatori</span>
+    <h1>Calcolo delle Probabilità</h1>
+    <p class="sub">Dal calcolo combinatorio alla probabilità condizionata e al teorema di Bayes, con simulatori interattivi.</p>
+    <div class="toc">
+      <a href="#combinatorio">Combinatorio</a>
+      <a href="#classica">Prob. classica</a>
+      <a href="#somma">Teorema somma</a>
+      <a href="#dipendenti">Dipendenza</a>
+      <a href="#condizionata">Condizionata</a>
+      <a href="#bayes">Bayes</a>
+      <a href="#simulatori">Simulatori</a>
+    </div>
+    <div class="toolbar no-print"><button class="btn btn-primary" onclick="window.print()">🖨️ Stampa / Esporta PDF</button></div>
+  </section>
+
+  <!-- 1. COMBINATORIO -->
+  <section class="card" id="combinatorio">
+    <h2><span class="em">🔢</span> 1. Calcolo Combinatorio</h2>
+    <p>Il <b>calcolo combinatorio</b> studia in quanti modi si possono raggruppare o ordinare gli elementi di un insieme. È il fondamento del calcolo delle probabilità nei contesti discreti.</p>
+    <h3>Fattoriale</h3>
+    <div class="formula">$$n!=n\cdot(n-1)\cdot(n-2)\cdots 2\cdot 1\qquad 0!=1$$</div>
+    <h3>Permutazioni, disposizioni, combinazioni</h3>
+    <div class="formula">$$P_n=n!\qquad D_{n,k}=\frac{n!}{(n-k)!}\qquad D'_{n,k}=n^k\qquad \binom{n}{k}=\frac{n!}{k!\,(n-k)!}$$</div>
+    <table class="cmb">
+      <tr><th>Nome</th><th>Formula</th><th>Ordine?</th><th>Ripetizioni?</th></tr>
+      <tr><td>Permutazioni</td><td>$n!$</td><td>Sì</td><td>No</td></tr>
+      <tr><td>Disposizioni semplici</td><td>$n!/(n-k)!$</td><td>Sì</td><td>No</td></tr>
+      <tr><td>Disposizioni con rip.</td><td>$n^k$</td><td>Sì</td><td>Sì</td></tr>
+      <tr><td>Combinazioni semplici</td><td>$n!/[k!(n-k)!]$</td><td>No</td><td>No</td></tr>
+    </table>
+
+    <div class="sim">
+      <h3>Calcolatore — Formule combinatorie</h3>
+      <div class="ctrls">
+        <div class="ctrl"><label>n</label><input type="number" id="cn" value="10" min="0" max="170"></div>
+        <div class="ctrl"><label>k</label><input type="number" id="ck" value="3" min="0"></div>
+        <div class="ctrl"><button class="btn btn-primary" onclick="calcComb()">Calcola</button></div>
+      </div>
+      <div class="statline">
+        <span>Permutazioni $P_n=n!$: <b class="out" id="rPn">–</b></span>
+        <span>Disposizioni $D_{n,k}$: <b class="out" id="rD">–</b></span>
+        <span>Disp. con rip. $n^k$: <b class="out" id="rDr">–</b></span>
+        <span>Combinazioni $\binom{n}{k}$: <b class="out" id="rC">–</b></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. CLASSICA -->
+  <section class="card" id="classica">
+    <h2><span class="em">🎲</span> 2. Probabilità Classica</h2>
+    <p>Definizione di Laplace: quando tutti gli esiti sono egualmente possibili, con $\Omega$ spazio campionario,</p>
+    <div class="formula">$$P(A)=\frac{|A|}{|\Omega|}=\frac{\text{casi favorevoli}}{\text{casi totali}}\qquad 0\le P(A)\le 1$$</div>
+    <ul>
+      <li><b>Complementare:</b> $P(A^c)=1-P(A)$</li>
+      <li>Dado: $P(\text{pari})=3/6=1/2$ &nbsp;·&nbsp; Moneta: $P(\text{testa})=1/2$</li>
+      <li>Mazzo 52: $P(\text{asso})=4/52=1/13$ &nbsp;·&nbsp; $P(\text{cuori})=13/52=1/4$</li>
+    </ul>
+  </section>
+
+  <!-- 3. SOMMA -->
+  <section class="card" id="somma">
+    <h2><span class="em">➕</span> 3. Teorema della Somma</h2>
+    <p><b>Eventi incompatibili</b> ($A\cap B=\varnothing$): &nbsp; <span class="formula" style="display:inline-block">$P(A\cup B)=P(A)+P(B)$</span></p>
+    <p><b>Eventi compatibili</b> (formula generale):</p>
+    <div class="formula">$$P(A\cup B)=P(A)+P(B)-P(A\cap B)$$</div>
+    <p class="muted">Es. mazzo 52, $A$=cuori, $B$=figura: $13/52+12/52-3/52=22/52\approx42{,}3\%$.</p>
+  </section>
+
+  <!-- 4. DIPENDENTI -->
+  <section class="card" id="dipendenti">
+    <h2><span class="em">🔗</span> 4. Eventi Dipendenti e Indipendenti</h2>
+    <p><b>Indipendenti:</b> &nbsp;<span class="formula" style="display:inline-block">$P(A\cap B)=P(A)\cdot P(B)$</span></p>
+    <p><b>Dipendenti:</b> &nbsp;<span class="formula" style="display:inline-block">$P(A\cap B)=P(A)\cdot P(B\mid A)$</span></p>
+    <p class="muted">⚠ Incompatibilità ≠ indipendenza: due eventi incompatibili con probabilità positive sono sempre dipendenti.</p>
+  </section>
+
+  <!-- 5. CONDIZIONATA -->
+  <section class="card" id="condizionata">
+    <h2><span class="em">🎯</span> 5. Probabilità Condizionata</h2>
+    <div class="formula">$$P(A\mid B)=\frac{P(A\cap B)}{P(B)}\qquad (P(B)>0)$$</div>
+    <p><b>Probabilità totali:</b> se $B_1,\dots,B_n$ è una partizione di $\Omega$:</p>
+    <div class="formula">$$P(A)=\sum_i P(A\mid B_i)\,P(B_i)$$</div>
+  </section>
+
+  <!-- 6. BAYES -->
+  <section class="card" id="bayes">
+    <h2><span class="em">🧠</span> 6. Teorema di Bayes</h2>
+    <div class="formula">$$P(B\mid A)=\frac{P(A\mid B)\,P(B)}{P(A)}=\frac{P(A\mid B)\,P(B)}{\sum_j P(A\mid B_j)\,P(B_j)}$$</div>
+    <p class="muted">Paradosso: con una malattia rara, anche un test molto preciso produce molti falsi positivi.</p>
+
+    <div class="sim">
+      <h3>Simulatore — Bayes: test diagnostico</h3>
+      <div class="ctrls">
+        <div class="ctrl"><label>Prevalenza P(M): <span class="out" id="vPrev">1.0%</span></label><input type="range" id="prev" min="0.1" max="50" step="0.1" value="1" oninput="calcBayes()"></div>
+        <div class="ctrl"><label>Sensibilità P(+|M): <span class="out" id="vSens">99%</span></label><input type="range" id="sens" min="50" max="100" step="1" value="99" oninput="calcBayes()"></div>
+        <div class="ctrl"><label>Falsi pos. P(+|sano): <span class="out" id="vFp">5.0%</span></label><input type="range" id="fp" min="0" max="50" step="0.1" value="5" oninput="calcBayes()"></div>
+      </div>
+      <p>Probabilità di essere malati con test positivo, $P(M\mid +)$: &nbsp;<span class="bigval" id="bayesOut">–</span></p>
+      <p class="muted" id="bayesNote"></p>
+    </div>
+  </section>
+
+  <!-- 7. SIMULATORI -->
+  <section class="card" id="simulatori">
+    <h2><span class="em">🎰</span> 7. Simulatori Interattivi</h2>
+
+    <div class="sim">
+      <h3>Simulatore 1 — Lanci di moneta</h3>
+      <div class="ctrls">
+        <div class="ctrl"><label>Prob. testa p</label><input type="number" id="coinP" value="0.5" min="0" max="1" step="0.01"></div>
+        <div class="ctrl"><label>Lanci</label><input type="number" id="coinN" value="100" min="1" max="100000"></div>
+        <div class="ctrl"><button class="btn btn-primary" onclick="simCoin()">▶ Lancia</button></div>
+        <div class="ctrl"><button class="btn btn-ghost" onclick="resetCoin()">Reset</button></div>
+      </div>
+      <div class="statline">
+        <span>Teste: <b class="out" id="coinH">0</b></span>
+        <span>Croci: <b class="out" id="coinT">0</b></span>
+        <span>Frequenza teste: <b class="out" id="coinF">–</b></span>
+        <span>Attesa: <b class="out" id="coinE">–</b></span>
+      </div>
+    </div>
+
+    <div class="sim">
+      <h3>Simulatore 2 — Lancio di dadi</h3>
+      <div class="ctrls">
+        <div class="ctrl"><label>Tipo dado</label><select id="diceType"><option value="6">6 facce</option><option value="8">8 facce</option><option value="10">10 facce</option><option value="12">12 facce</option><option value="20">20 facce</option></select></div>
+        <div class="ctrl"><label>Numero dadi (somma)</label><select id="diceK"><option value="1">1 dado</option><option value="2">2 dadi</option><option value="3">3 dadi</option></select></div>
+        <div class="ctrl"><label>Lanci</label><input type="number" id="diceN" value="500" min="1" max="200000"></div>
+        <div class="ctrl"><button class="btn btn-primary" onclick="simDice()">▶ Lancia</button></div>
+      </div>
+      <canvas class="chart" id="diceChart"></canvas>
+    </div>
+
+    <div class="sim">
+      <h3>Simulatore 3 — Estrazione da mazzo (52 carte)</h3>
+      <div class="ctrls">
+        <div class="ctrl"><label>Estrazioni per giro</label><select id="cardK"><option value="1">1 carta</option><option value="2">2 carte</option><option value="5">5 carte</option></select></div>
+        <div class="ctrl"><label>Rimpiazzo</label><select id="cardRep"><option value="0">Senza rimpiazzo</option><option value="1">Con rimpiazzo</option></select></div>
+        <div class="ctrl"><label>Giri</label><input type="number" id="cardN" value="500" min="1" max="100000"></div>
+        <div class="ctrl"><button class="btn btn-primary" onclick="simCards()">▶ Estrai</button></div>
+      </div>
+      <div class="statline">
+        <span>Giri con ≥1 asso: <b class="out" id="cardAce">–</b></span>
+        <span>Frequenza ≥1 asso: <b class="out" id="cardF">–</b></span>
+        <span>Almeno 1 cuori: <b class="out" id="cardHearts">–</b></span>
+      </div>
+    </div>
+  </section>
+
+  <footer>Didattica GiGi · Simulatori di Probabilità · Ricostruzione locale in stile GiGi</footer>
+</div>
+
+<script src="sim-probabilita.js"></script>
+</body>
+</html>

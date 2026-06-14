@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geometria dello Spazio — Simulatori 3D | Didattica GiGi</title>
+<link rel="stylesheet" href="gigi-didattica.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  .sim{background:rgba(7,11,31,.5);border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0}
+  .ctrls{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-bottom:12px}
+  .ctrl{display:flex;flex-direction:column;gap:5px}
+  .ctrl label{font-size:.78rem;color:var(--muted);font-weight:700}
+  .ctrl input[type=number],.ctrl select{background:rgba(16,26,58,.7);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:8px 10px;font-family:inherit;font-size:.9rem;width:70px}
+  .ctrl select{width:auto}
+  #scene3d{width:100%;height:430px;background:rgba(7,11,31,.55);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:grab;touch-action:none}
+  .vecgrp{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:6px 0}
+  .vecgrp .tag{font-weight:700;color:var(--cyan-bright);min-width:28px}
+  .res{background:rgba(34,211,238,.08);border:1px solid rgba(34,211,238,.3);border-radius:10px;padding:14px;margin-top:12px}
+  .res .row{margin:5px 0;font-size:.95rem}
+  .res b{color:#fff}
+  .panel-mode{display:none}
+  .panel-mode.active{display:block}
+  .legend{font-size:.82rem;color:var(--muted);margin-top:8px}
+  .legend span{display:inline-block;margin-right:14px}
+  .sw{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:middle;margin-right:4px}
+</style>
+</head>
+<body>
+<div class="glow-bg"></div>
+
+<header>
+  <div class="nav">
+    <div class="brand"><span class="badge">G</span> GiGi · Didattica</div>
+    <a class="back" href="index.html">← Tutti gli argomenti</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="topic-hero">
+    <span class="eyebrow">∫ Matematica · Geometria Analitica dello Spazio</span>
+    <h1>Piani, Rette e Vettori nello Spazio</h1>
+    <p class="sub">Equazioni di piani e rette, forme parametriche e prodotto vettore, con simulatori 3D interattivi.</p>
+    <div class="toc">
+      <a href="#piani">Piani</a>
+      <a href="#rette">Rette</a>
+      <a href="#prodvett">Prodotto vettore</a>
+      <a href="#sim">Simulatore 3D</a>
+    </div>
+    <div class="toolbar no-print"><button class="btn btn-primary" onclick="window.print()">🖨️ Stampa / Esporta PDF</button></div>
+  </section>
+
+  <section class="card" id="piani">
+    <h2><span class="em">🟦</span> 1. Il Piano nello Spazio</h2>
+    <p>Un piano è determinato da un punto $P_0$ e un <b>vettore normale</b> $\vec n=(a,b,c)$:</p>
+    <div class="formula">$$ax+by+cz+d=0\qquad d=-(ax_0+by_0+cz_0)$$</div>
+    <p><b>Piano per tre punti</b> non allineati $A,B,C$: la normale è $\vec n=\vec{AB}\times\vec{AC}$.</p>
+    <p><b>Distanza punto-piano:</b></p>
+    <div class="formula">$$d(P,\pi)=\frac{|ax_0+by_0+cz_0+d|}{\sqrt{a^2+b^2+c^2}}$$</div>
+  </section>
+
+  <section class="card" id="rette">
+    <h2><span class="em">📏</span> 2. La Retta nello Spazio</h2>
+    <p><b>Forma parametrica</b> con punto $P_0$ e vettore direttore $\vec v=(l,m,n)$:</p>
+    <div class="formula">$$x=x_0+lt,\quad y=y_0+mt,\quad z=z_0+nt,\quad t\in\mathbb{R}$$</div>
+    <p><b>Forma ridotta</b> (se $l,m,n\neq0$): &nbsp;<span class="formula" style="display:inline-block">$\dfrac{x-x_0}{l}=\dfrac{y-y_0}{m}=\dfrac{z-z_0}{n}$</span></p>
+    <p>Retta per due punti $A,B$: vettore direttore $\vec v=B-A$.</p>
+  </section>
+
+  <section class="card" id="prodvett">
+    <h2><span class="em">✖️</span> 3. Il Prodotto Vettore</h2>
+    <div class="formula">$$\vec u\times\vec v=(u_2v_3-u_3v_2,\ u_3v_1-u_1v_3,\ u_1v_2-u_2v_1)$$</div>
+    <p>$|\vec u\times\vec v|=|\vec u||\vec v|\sin\theta$ = area del parallelogramma. Proprietà: anticommutativo, perpendicolare a $\vec u$ e $\vec v$, nullo se paralleli. Area triangolo $S=\tfrac12|\vec{AB}\times\vec{AC}|$.</p>
+  </section>
+
+  <section class="card" id="sim">
+    <h2><span class="em">🧊</span> 4. Simulatore 3D interattivo</h2>
+    <p class="muted">Scegli il simulatore, inserisci i dati e clicca Visualizza. Trascina col mouse per ruotare, rotella per zoom.</p>
+    <div class="sim">
+      <div class="ctrls">
+        <div class="ctrl"><label>Simulatore</label>
+          <select id="mode" onchange="switchMode()">
+            <option value="plane">1 · Piano dai coefficienti</option>
+            <option value="plane3">2 · Piano per 3 punti</option>
+            <option value="line">3 · Retta per 2 punti</option>
+            <option value="cross">4 · Prodotto vettore u×v</option>
+          </select>
+        </div>
+        <div class="ctrl"><button class="btn btn-primary" onclick="visualize()">▶ Visualizza</button></div>
+        <div class="ctrl"><button class="btn btn-ghost" onclick="resetView()">Reset vista</button></div>
+      </div>
+
+      <!-- pannello: piano coeff -->
+      <div class="panel-mode active" id="p-plane">
+        <div class="vecgrp"><span class="tag">a,b,c,d</span>
+          <input type="number" id="pa" value="2"><input type="number" id="pb" value="-1"><input type="number" id="pc" value="3"><input type="number" id="pd" value="-6">
+        </div>
+      </div>
+      <!-- pannello: piano 3 punti -->
+      <div class="panel-mode" id="p-plane3">
+        <div class="vecgrp"><span class="tag">A</span><input type="number" id="ax" value="3"><input type="number" id="ay" value="0"><input type="number" id="az" value="0"></div>
+        <div class="vecgrp"><span class="tag">B</span><input type="number" id="bx" value="0"><input type="number" id="by" value="3"><input type="number" id="bz" value="0"></div>
+        <div class="vecgrp"><span class="tag">C</span><input type="number" id="cx" value="0"><input type="number" id="cy" value="0"><input type="number" id="cz" value="3"></div>
+      </div>
+      <!-- pannello: retta 2 punti -->
+      <div class="panel-mode" id="p-line">
+        <div class="vecgrp"><span class="tag">A</span><input type="number" id="lax" value="0"><input type="number" id="lay" value="0"><input type="number" id="laz" value="0"></div>
+        <div class="vecgrp"><span class="tag">B</span><input type="number" id="lbx" value="2"><input type="number" id="lby" value="3"><input type="number" id="lbz" value="1"></div>
+      </div>
+      <!-- pannello: prodotto vettore -->
+      <div class="panel-mode" id="p-cross">
+        <div class="vecgrp"><span class="tag">u</span><input type="number" id="ux" value="1"><input type="number" id="uy" value="0"><input type="number" id="uz" value="0"></div>
+        <div class="vecgrp"><span class="tag">v</span><input type="number" id="vx" value="0"><input type="number" id="vy" value="1"><input type="number" id="vz" value="0"></div>
+      </div>
+
+      <div id="scene3d"></div>
+      <div class="legend">
+        <span><span class="sw" style="background:#ff6b6b"></span>asse x</span>
+        <span><span class="sw" style="background:#7df9c0"></span>asse y</span>
+        <span><span class="sw" style="background:#5c9bff"></span>asse z</span>
+        <span><span class="sw" style="background:#22d3ee"></span>oggetto</span>
+        <span><span class="sw" style="background:#8b5cff"></span>normale / risultato</span>
+      </div>
+      <div class="res" id="gres"><span class="muted">Clicca ▶ Visualizza.</span></div>
+    </div>
+  </section>
+
+  <footer>Didattica GiGi · Simulatori 3D Geometria dello Spazio · Ricostruzione locale in stile GiGi</footer>
+</div>
+
+<script src="sim-geometria-spazio.js"></script>
+</body>
+</html>
