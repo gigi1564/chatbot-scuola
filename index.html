@@ -37,7 +37,7 @@
   @media(max-width:860px){.hero{grid-template-columns:1fr;gap:34px;text-align:center}}
   .pill{display:inline-block;background:rgba(34,211,238,.12);color:var(--cyan-bright);font-weight:700;font-size:.8rem;padding:7px 15px;border-radius:999px;letter-spacing:.4px;border:1px solid rgba(34,211,238,.35)}
   .hero h1{font-size:3rem;line-height:1.1;color:#fff;margin:18px 0 16px;font-weight:800;letter-spacing:-.5px}
-  .hero h1 span{background:linear-gradient(120deg,#5cf3ff,#b39bff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .hero h1 span{background:linear-gradient(120deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   .hero p.lead{font-size:1.16rem;color:var(--muted);max-width:520px}
   @media(max-width:860px){.hero p.lead{margin:0 auto}}
   .cta-row{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
@@ -137,6 +137,9 @@
     .chat-body{min-height:300px;max-height:55vh}
     .suggest{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
     .suggest .chip{flex:0 0 auto}
+  }
+  @media(max-width:1024px){
+    .hero h1 span{background:linear-gradient(120deg,#5cf3ff,#b39bff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
   }
 </style>
 </head>
@@ -425,4 +428,4 @@
 <script src="gigi.js"></script>
 </body>
 </html>
-                                                                                                                                                                                                                        
+                                                                                                                                                                                                                               
