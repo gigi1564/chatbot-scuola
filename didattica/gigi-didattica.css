@@ -129,3 +129,10 @@ footer{color:#6c80a8;text-align:center;padding:34px 0;border-top:1px solid var(-
   .ctrls{gap:10px}
   .wrap{padding:0 16px}
 }
+
+
+/* Mappa concettuale SVG — evidenziazione hover sui nodi */
+.mm-scroll g{cursor:pointer}
+.mm-scroll g rect,.mm-scroll g text{transition:fill .15s ease, stroke .15s ease}
+.mm-scroll g:hover rect{fill:#5cf3ff;stroke:#ffffff;stroke-width:2.4}
+.mm-scroll g:hover text{fill:#04122a}
