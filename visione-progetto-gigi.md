@@ -17,7 +17,7 @@ Creare un assistente digitale capace di guidare studenti e famiglie all'interno 
 - Supporto per Open Day e orientamento
 - Guida agli indirizzi e ai laboratori STEM
 - FAQ automatiche per studenti e famiglie
-- Supporto didattico per Matematica, Fisica e Informatica
+- Supporto didattico per Matematica e Fisica
 - Collegamento con simulazioni e materiali digitali
 
 ---

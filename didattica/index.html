@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Didattica GiGi — Matematica e Fisica</title>
+<link rel="stylesheet" href="gigi-didattica.css">
+<style>
+  .hubgrid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:680px){.hubgrid{grid-template-columns:1fr}}
+  .hubcard{display:block;text-decoration:none;padding:24px}
+  .hubcard:hover{border-color:rgba(34,211,238,.5);box-shadow:var(--glow);transform:translateY(-4px);transition:all .15s ease}
+  .hubcard .em{font-size:2rem}
+  .hubcard h3{color:#fff;margin:10px 0 6px;font-size:1.2rem}
+  .hubcard p{color:var(--muted);font-size:.92rem;margin:0}
+  .feat{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .feat span{font-size:.72rem;color:var(--cyan-bright);background:rgba(34,211,238,.1);border:1px solid var(--line);padding:4px 10px;border-radius:999px}
+</style>
+</head>
+<body>
+<div class="glow-bg"></div>
+
+<header>
+  <div class="nav">
+    <div class="brand"><span class="badge">G</span> GiGi · Didattica</div>
+    <a class="back" href="../index.html">← Torna a GiGi</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <section class="topic-hero">
+    <span class="eyebrow">Materiali interattivi</span>
+    <h1>Didattica: Matematica e Fisica</h1>
+    <p class="sub">Dispense in stile GiGi con formule (LaTeX), storia degli scienziati, podcast e video, quiz a livelli, mappe concettuali, glossario e collegamenti alla realtà.</p>
+  </section>
+
+  <h2 class="dgroup">∫ Matematica</h2>
+  <div class="hubgrid">
+    <a class="hubcard card" href="matematica-probabilita.html">
+      <span class="em">🎲</span>
+      <h3>Probabilità</h3>
+      <p>Combinatorio, probabilità classica, eventi e teorema di Bayes.</p>
+      <div class="feat"><span>Formule</span><span>Storia</span><span>Quiz</span><span>Video</span><span>Glossario</span></div>
+    </a>
+    <span class="hubcard card" style="opacity:.6">
+      <span class="em">∿</span>
+      <h3>Altri argomenti</h3>
+      <p>Geometria dello spazio, numeri complessi, statistica... (in arrivo, stesso modello).</p>
+      <div class="feat"><span>In preparazione</span></div>
+    </span>
+  </div>
+
+  <h2 class="dgroup">⚡ Fisica</h2>
+  <div class="hubgrid">
+    <a class="hubcard card" href="fisica-campo-elettrico.html">
+      <span class="em">⚡</span>
+      <h3>Il Campo Elettrico</h3>
+      <p>Legge di Coulomb, campo, linee di campo, potenziale e teorema di Gauss.</p>
+      <div class="feat"><span>Formule</span><span>Storia</span><span>Quiz</span><span>Video</span><span>Glossario</span></div>
+    </a>
+    <span class="hubcard card" style="opacity:.6">
+      <span class="em">🧪</span>
+      <h3>Altri argomenti</h3>
+      <p>Meccanica, distribuzioni di carica, energia potenziale... (in arrivo, stesso modello).</p>
+      <div class="feat"><span>In preparazione</span></div>
+    </span>
+  </div>
+
+  <footer>Didattica GiGi · Template dimostrativo · Ogni pagina include: LaTeX/MathJax · Storia · Podcast & Video · Meme · Quiz a livelli · Mappa concettuale · Stampa/PDF · Nella vita reale · Glossario · Connessioni Matematica–Fisica</footer>
+</div>
+</body>
+</html>

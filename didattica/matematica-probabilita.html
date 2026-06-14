@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Probabilità — Didattica GiGi</title>
+<link rel="stylesheet" href="gigi-didattica.css">
+<script>MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\\[','\\]']]}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+<body>
+<div class="glow-bg"></div>
+
+<header>
+  <div class="nav">
+    <div class="brand"><span class="badge">G</span> GiGi · Didattica</div>
+    <a class="back" href="index.html">← Tutti gli argomenti</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="topic-hero">
+    <span class="eyebrow">∫ Matematica · Probabilità</span>
+    <h1>Probabilità</h1>
+    <p class="sub">Calcolo combinatorio, probabilità classica, eventi dipendenti e teorema di Bayes. Una guida con formule, storia, quiz e collegamenti alla realtà.</p>
+    <div class="toc">
+      <a href="#teoria">Teoria</a>
+      <a href="#mappa">Mappa concettuale</a>
+      <a href="#storia">Storia</a>
+      <a href="#realta">Nella vita reale</a>
+      <a href="#connessione">Connessione con la Fisica</a>
+      <a href="#media">Podcast & Video</a>
+      <a href="#quiz">Verifica / Quiz</a>
+      <a href="#glossario">Glossario</a>
+    </div>
+    <div class="toolbar no-print">
+      <button class="btn btn-primary" onclick="window.print()">🖨️ Stampa / Esporta PDF</button>
+      <a class="btn btn-ghost" href="https://didattica-galilei.github.io/dispense/matematica/probabilita.html" target="_blank" rel="noopener">Simulatori interattivi →</a>
+    </div>
+  </section>
+
+  <!-- TEORIA con MathJax -->
+  <section class="card" id="teoria">
+    <h2><span class="em">🧮</span> Teoria essenziale</h2>
+    <p>La <b>probabilità classica</b> di un evento $E$ è il rapporto tra i casi favorevoli e i casi possibili (tutti equiprobabili):</p>
+    <div class="formula">$$P(E)=\frac{\text{casi favorevoli}}{\text{casi possibili}}=\frac{|E|}{|\Omega|}$$</div>
+    <p>con $0 \le P(E) \le 1$. La probabilità dell'evento certo è $1$, quella dell'evento impossibile è $0$.</p>
+
+    <h3>Calcolo combinatorio</h3>
+    <p>Le <b>permutazioni</b> di $n$ oggetti distinti sono $n!$. Le <b>disposizioni</b> e le <b>combinazioni</b> di $k$ oggetti su $n$:</p>
+    <div class="formula">$$D_{n,k}=\frac{n!}{(n-k)!}\qquad\qquad \binom{n}{k}=\frac{n!}{k!\,(n-k)!}$$</div>
+
+    <h3>Eventi e regole fondamentali</h3>
+    <p>Unione (regola della somma) e intersezione di eventi indipendenti (regola del prodotto):</p>
+    <div class="formula">$$P(A\cup B)=P(A)+P(B)-P(A\cap B)\qquad P(A\cap B)=P(A)\,P(B)\ \text{(se indipendenti)}$$</div>
+
+    <h3>Probabilità condizionata e Teorema di Bayes</h3>
+    <div class="formula">$$P(A\mid B)=\frac{P(A\cap B)}{P(B)}\qquad\Longrightarrow\qquad P(A\mid B)=\frac{P(B\mid A)\,P(A)}{P(B)}$$</div>
+    <p class="muted">Il teorema di Bayes permette di "aggiornare" la probabilità di un'ipotesi alla luce di una nuova evidenza.</p>
+  </section>
+
+  <!-- MAPPA CONCETTUALE NAVIGABILE -->
+  <section class="card" id="mappa">
+    <h2><span class="em">🗺️</span> Mappa concettuale navigabile</h2>
+    <p class="muted">Clicca un nodo per saltare alla parte corrispondente.</p>
+    <div class="mindmap">
+      <div class="mm-root">PROBABILITÀ</div>
+      <div class="mm-row">
+        <div class="mm-node" onclick="goto('teoria')">Combinatorio</div>
+        <div class="mm-node" onclick="goto('teoria')">Probabilità classica</div>
+        <div class="mm-node" onclick="goto('teoria')">Eventi (somma/prodotto)</div>
+      </div>
+      <div class="mm-row">
+        <div class="mm-node" onclick="goto('teoria')">Condizionata</div>
+        <div class="mm-node" onclick="goto('teoria')">Bayes</div>
+        <div class="mm-node" onclick="goto('realta')">Applicazioni</div>
+        <div class="mm-node" onclick="goto('connessione')">Fisica statistica</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIA -->
+  <section class="card" id="storia">
+    <h2><span class="em">📜</span> Storia — Blaise Pascal</h2>
+    <div class="scientist">
+      <div class="ph">🧠</div>
+      <div class="bio">
+        <p><b>Blaise Pascal</b> (1623–1662), matematico, fisico e filosofo francese. Insieme a <b>Pierre de Fermat</b>, in un celebre scambio di lettere del 1654 sul "problema della divisione della posta" in un gioco interrotto, gettò le basi del moderno <b>calcolo delle probabilità</b>.</p>
+        <p>A lui si deve anche il <b>triangolo di Pascal</b>, che fornisce i coefficienti binomiali $\binom{n}{k}$, e contributi fondamentali alla fisica dei fluidi (principio di Pascal).</p>
+        <p class="muted">Curiosità: la "scommessa di Pascal" applica un ragionamento probabilistico persino a una questione filosofica.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEME -->
+  <div class="meme">
+    😄 <b>Pausa sorriso:</b> «Qual è la probabilità che un matematico esca di casa? Dipende dalle <i>condizioni</i> iniziali.»
+  </div>
+
+  <!-- NELLA VITA REALE -->
+  <section class="card" id="realta">
+    <h2><span class="em">🌍</span> Nella vita reale</h2>
+    <div class="reallife">
+      <a class="img" href="https://it.wikipedia.org/wiki/Previsioni_del_tempo" target="_blank" rel="noopener" title="Previsioni meteo">🌦️</a>
+      <div class="txt">
+        <p>La probabilità è ovunque: nelle <b>previsioni meteo</b> ("70% di pioggia"), nel calcolo dei <b>premi assicurativi</b>, nei <b>test medici</b> (dove il teorema di Bayes spiega i falsi positivi) e nei sistemi di <b>raccomandazione</b> online.</p>
+        <p><a href="https://it.wikipedia.org/wiki/Probabilit%C3%A0" target="_blank" rel="noopener">Approfondisci: la probabilità nella vita quotidiana →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONNESSIONE CON LA FISICA -->
+  <section class="card" id="connessione">
+    <h2><span class="em">🔗</span> Connessione con la Fisica</h2>
+    <div class="conn">
+      <p>La probabilità è il linguaggio della <b>fisica statistica</b> e della <b>meccanica quantistica</b>. La distribuzione di Maxwell-Boltzmann descrive le velocità delle molecole di un gas in termini probabilistici, mentre in meccanica quantistica il modulo quadro della funzione d'onda $|\psi|^2$ rappresenta una <b>densità di probabilità</b>.</p>
+      <p class="muted">Stesso strumento matematico, due mondi: il caso nei giochi e l'incertezza fondamentale della natura.</p>
+    </div>
+  </section>
+
+  <!-- PODCAST & VIDEO -->
+  <section class="card" id="media">
+    <h2><span class="em">🎧</span> Podcast & Video-Esempio</h2>
+    <p class="muted">Contenuti brevi (5–7 minuti) realizzati da docenti. Esempi dimostrativi qui sotto.</p>
+
+    <h3>🎙️ Podcast</h3>
+    <div class="audio-row"><span class="play">▶</span><div><b>Ep. 1 — "Che cos'è la probabilità?"</b><br><span class="muted">6 min · episodio dimostrativo (da registrare)</span></div></div>
+    <div class="audio-row"><span class="play">▶</span><div><b>Ep. 2 — "Bayes spiegato con un test medico"</b><br><span class="muted">7 min · episodio dimostrativo (da registrare)</span></div></div>
+
+    <h3>🎬 Video-Esempio</h3>
+    <div class="media-grid">
+      <div class="media-item">
+        <h4>Calcolo combinatorio</h4>
+        <a class="btn btn-ghost" href="https://www.youtube.com/results?search_query=elia+bombardelli+calcolo+combinatorio" target="_blank" rel="noopener">▶ Guarda su YouTube</a>
+        <p class="meta">Esempio dal canale di Elia Bombardelli (Matematica)</p>
+      </div>
+      <div class="media-item">
+        <h4>Probabilità e Bayes</h4>
+        <a class="btn btn-ghost" href="https://www.youtube.com/results?search_query=elia+bombardelli+probabilità" target="_blank" rel="noopener">▶ Guarda su YouTube</a>
+        <p class="meta">Esempio dal canale di Elia Bombardelli (Matematica)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="card" id="quiz">
+    <h2><span class="em">✅</span> Verifica / Test / Quiz</h2>
+    <p class="muted">Autovalutazione a livelli crescenti.</p>
+    <div class="levels">
+      <span class="lvl base">Base</span><span class="lvl inter">Intermedio</span><span class="lvl alto">Alto</span><span class="lvl olimp">Olimpico</span>
+    </div>
+
+    <div class="quiz">
+      <div class="q"><span class="lvl base">Base</span> &nbsp;Lanciando un dado a 6 facce, qual è $P(\text{esce un numero pari})$?</div>
+      <button class="opt" onclick="ans(this,false,'f1')">1/3</button>
+      <button class="opt" onclick="ans(this,true,'f1')">1/2</button>
+      <button class="opt" onclick="ans(this,false,'f1')">2/3</button>
+      <div class="feedback" id="f1"></div>
+    </div>
+
+    <div class="quiz">
+      <div class="q"><span class="lvl inter">Intermedio</span> &nbsp;In quanti modi si possono scegliere 2 studenti su 5 (senza ordine)?</div>
+      <button class="opt" onclick="ans(this,false,'f2')">20</button>
+      <button class="opt" onclick="ans(this,true,'f2')">10</button>
+      <button class="opt" onclick="ans(this,false,'f2')">25</button>
+      <div class="feedback" id="f2"></div>
+    </div>
+
+    <div class="quiz">
+      <div class="q"><span class="lvl alto">Alto</span> &nbsp;Due lanci di moneta: qual è $P(\text{almeno una testa})$?</div>
+      <button class="opt" onclick="ans(this,false,'f3')">1/2</button>
+      <button class="opt" onclick="ans(this,false,'f3')">1/4</button>
+      <button class="opt" onclick="ans(this,true,'f3')">3/4</button>
+      <div class="feedback" id="f3"></div>
+    </div>
+
+    <h3>🏅 Allenamento livello olimpico e oltre</h3>
+    <ul class="reslist">
+      <li><a href="https://www.accademiamatematica.it/esercitiamoci" target="_blank" rel="noopener">Accademia Matematica — Esercitiamoci</a></li>
+      <li><a href="https://giochimatematici.unibocconi.eu/archivio-giochi" target="_blank" rel="noopener">Giochi Matematici Bocconi — Archivio giochi</a></li>
+      <li><a href="https://olimpiadi.dm.unibo.it/le-gare/giochi-di-archimede/" target="_blank" rel="noopener">Olimpiadi della Matematica — Giochi di Archimede</a></li>
+    </ul>
+  </section>
+
+  <!-- GLOSSARIO -->
+  <section class="card" id="glossario">
+    <h2><span class="em">📖</span> Glossario</h2>
+    <dl class="gloss">
+      <dt>Spazio campionario ($\Omega$)</dt><dd>L'insieme di tutti gli esiti possibili di un esperimento aleatorio.</dd>
+      <dt>Evento</dt><dd>Un sottoinsieme dello spazio campionario.</dd>
+      <dt>Eventi indipendenti</dt><dd>Due eventi tali che il verificarsi dell'uno non altera la probabilità dell'altro.</dd>
+      <dt>Probabilità condizionata</dt><dd>La probabilità di un evento dato che un altro si è già verificato, $P(A\mid B)$.</dd>
+      <dt>Coefficiente binomiale</dt><dd>Il numero $\binom{n}{k}$ di modi di scegliere $k$ elementi tra $n$ senza ordine.</dd>
+    </dl>
+  </section>
+
+  <footer>Didattica GiGi · Template dimostrativo · Stile coerente con l'assistente GiGi</footer>
+</div>
+
+<script>
+function goto(id){var el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'});}
+function ans(btn,ok,fb){
+  var box=btn.parentElement;
+  box.querySelectorAll('.opt').forEach(function(b){b.disabled=true;});
+  var f=document.getElementById(fb);
+  if(ok){btn.classList.add('correct');f.textContent="✔ Esatto! Ottimo lavoro.";f.style.color="#7df9c0";}
+  else{btn.classList.add('wrong');f.textContent="✘ Non proprio: rivedi la teoria e riprova nel prossimo quiz.";f.style.color="#ff9a9a";
+    box.querySelectorAll('.opt').forEach(function(b){if(b.getAttribute('onclick').indexOf('true')>-1)b.classList.add('correct');});}
+}
+</script>
+</body>
+</html>

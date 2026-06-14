@@ -28,7 +28,7 @@ Questo documento è la **fonte di verità** per il comportamento dell'assistente
 
 **Missione.** Creare un assistente digitale capace di guidare studenti e famiglie all'interno della vita scolastica del Liceo [Nome Liceo], offrendo informazioni rapide, supporto orientativo e strumenti didattici innovativi.
 
-**Funzionalità principali:** informazioni su orari, segreteria e regolamenti; supporto per Open Day e orientamento; guida agli indirizzi e ai laboratori STEM; FAQ automatiche per studenti e famiglie; supporto didattico per Matematica, Fisica e Informatica; collegamento con simulazioni e materiali digitali.
+**Funzionalità principali:** informazioni su orari, segreteria e regolamenti; supporto per Open Day e orientamento; guida agli indirizzi e ai laboratori STEM; FAQ automatiche per studenti e famiglie; supporto didattico per Matematica e Fisica; collegamento con simulazioni e materiali digitali.
 
 **Modalità d'uso:** chat sul sito della scuola; QR Code durante Open Day ed eventi; totem interattivo all'ingresso; assistente integrato nel portale scolastico.
 
@@ -148,7 +148,7 @@ STILE
 2. **Offerta formativa** — indirizzi di studio, quadri orari, PCTO, progetti, lingue, laboratori.
 3. **Vita scolastica** — calendario, orari lezioni, assenze/giustificazioni, regolamento d'istituto, viaggi e uscite.
 4. **Servizi digitali** — registro elettronico, PagoPA, credenziali, SPID, email istituzionale.
-5. **Didattica STEM** — laboratori scientifici, progetti di matematica/fisica/informatica, attività e iniziative STEM, eventuali percorsi Cambridge/certificazioni.
+5. **Didattica STEM** — laboratori scientifici, progetti di matematica e fisica, attività e iniziative STEM, eventuali percorsi Cambridge/certificazioni.
 
 Per ciascuna area, la knowledge base operativa dovrà contenere i contenuti reali (vedi §10). Questo documento definisce **come** il bot risponde; i **contenuti** verranno caricati separatamente.
 
