@@ -136,3 +136,8 @@ footer{color:#6c80a8;text-align:center;padding:34px 0;border-top:1px solid var(-
 .mm-scroll g rect,.mm-scroll g text{transition:fill .15s ease, stroke .15s ease}
 .mm-scroll g:hover rect{fill:#5cf3ff;stroke:#ffffff;stroke-width:2.4}
 .mm-scroll g:hover text{fill:#04122a}
+
+
+/* Mappa concettuale SVG — responsiva: entra sempre nello schermo, niente scroll orizzontale */
+.mm-scroll{overflow-x:hidden}
+.mm-scroll svg{width:100%;height:auto;max-width:760px}
